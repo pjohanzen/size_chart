@@ -164,65 +164,103 @@
         }
         
         /* Size Chart Styles */
-        .size-chart-tab {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .size-chart-tab:hover {
-            color: #ffb6a3;
-        }
-        
-        .size-chart-tab.active {
-            color: #ffb6a3;
-            border-bottom-color: #ffb6a3;
-        }
-        
         .size-chart-content {
-            display: none;
-        }
-        
-        .size-chart-content.active {
             display: block;
         }
         
         .size-chart-content table {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
         }
         
         .size-chart-content th,
         .size-chart-content td {
             padding: 0.5rem 0.25rem;
             text-align: center;
-            border: 1px solid #d1d5db;
+            border: none;
+            position: relative;
         }
         
         .size-chart-content th:first-child,
         .size-chart-content td:first-child {
             text-align: left;
-            padding-left: 0.75rem;
-        }
-        
-        .size-chart-content table {
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding-left: 1rem;
+            font-weight: 600;
+            color: #1f2937;
         }
         
         .size-chart-content th {
-            background-color: #fef2f2;
-            font-weight: 600;
+            background: linear-gradient(135deg, #fef2f2 0%, #ffe8e2 100%);
+            font-weight: 700;
             color: #374151;
+            font-size: 0.75rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
         }
         
         .size-chart-content .bg-red-50 {
-            background-color: #fef2f2;
+            background: linear-gradient(135deg, #fef2f2 0%, #fecaca 20%);
         }
         
         .size-chart-content .bg-blue-50 {
-            background-color: #eff6ff;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 20%);
         }
         
         .size-chart-content .bg-mea-peach-light {
-            background-color: #ffe8e2;
+            background: linear-gradient(135deg, #ffe8e2 0%, #ffb6a3 20%);
+        }
+        
+        .size-chart-content tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        
+        .size-chart-content tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        .size-chart-content td {
+            color: #4b5563;
+            font-weight: 500;
+        }
+        
+        .size-chart-content th:not(:first-child) {
+            min-width: 50px;
+        }
+        
+        .size-chart-content .measurement-label {
+            font-weight: 600;
+            color: #1f2937;
+            position: relative;
+        }
+        
+        .size-chart-content .measurement-label::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ffb6a3, #ff9770);
+            border-radius: 1px;
+        }
+        
+        /* Ensure proper spacing between chart sections */
+        .size-chart-content + .size-chart-content {
+            margin-top: 3rem;
+        }
+        
+        /* Prevent dropdown overlap with table data */
+        .size-chart-content .flex-shrink-0 {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Ensure table data is properly spaced */
+        .size-chart-content table {
+            margin-top: 1rem;
         }
         
         @media (max-width: 768px) {
@@ -232,7 +270,12 @@
             
             .size-chart-content th,
             .size-chart-content td {
-                padding: 0.25rem 0.125rem;
+                padding: 0.75rem 0.375rem;
+            }
+            
+            .size-chart-content th:first-child,
+            .size-chart-content td:first-child {
+                padding-left: 1rem;
             }
         }
         .fade {
@@ -759,43 +802,68 @@
 
     <!-- Size Chart Modal -->
     <div id="sizeChartModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
-      <div class="bg-white w-full max-w-6xl rounded-2xl shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
-        <button id="closeSizeChart" class="absolute top-4 right-6 text-mea-dark-gray hover:text-mea-peach text-3xl font-bold">&times;</button>
-        <h4 class="serif text-2xl mb-6 text-mea-peach text-center">Size Chart & Measurements</h4>
+      <div class="bg-white w-full max-w-7xl rounded-3xl shadow-2xl p-8 relative max-h-[95vh] overflow-y-auto">
+        <button id="closeSizeChart" class="absolute top-6 right-8 text-mea-dark-gray hover:text-mea-peach text-4xl font-bold transition-all duration-200">&times;</button>
+        <h4 class="serif text-3xl mb-6 text-mea-peach text-center">Size Chart</h4>
         
-        <!-- Size Chart Tabs -->
-        <div class="flex border-b border-gray-200 mb-6">
-          <button class="size-chart-tab active px-6 py-3 text-sm font-medium border-b-2 border-mea-peach text-mea-peach" data-tab="jacket">Jacket</button>
-          <button class="size-chart-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-mea-peach" data-tab="pants">Pants</button>
-          <button class="size-chart-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-mea-peach" data-tab="custom">Custom Measurements</button>
+        <div class="bg-gradient-to-r from-mea-peach-light to-pink-50 rounded-2xl p-6 mb-8">
+          <p class="text-base text-mea-dark-gray text-center max-w-4xl mx-auto leading-relaxed">
+            <span class="font-semibold text-mea-black">Important:</span> The measurements in these tables are NOT body measurements. They are the measurements used to make the clothing and include some extra room added to body measurements.
+          </p>
         </div>
 
         <!-- Jacket Size Chart -->
         <div id="jacketChart" class="size-chart-content active">
-          <div class="mb-4">
-            <h5 class="text-lg font-semibold text-mea-black mb-2">Jacket Measurements (Finished Garment)</h5>
-            <p class="text-sm text-mea-dark-gray">All measurements are in inches. Length and Sleeve measurements are highlighted in red, Width measurements in blue.</p>
+          <div class="mb-6">
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+              <div class="flex-1">
+                <h5 class="text-2xl font-bold text-mea-black mb-3">Jacket Measurements</h5>
+                <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches. <span class="font-semibold text-red-600">Length and Sleeve</span> measurements are highlighted in red, <span class="font-semibold text-blue-600">Width</span> measurements in blue.</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4 flex-shrink-0">
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
+                  <label class="block text-sm font-semibold text-mea-black mb-2">Length</label>
+                  <select id="jacketChartLength" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
+                    <option value="Extra Short">Extra Short</option>
+                    <option value="Short">Short</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Tall">Tall</option>
+                    <option value="Extra Tall">Extra Tall</option>
+                  </select>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
+                  <label class="block text-sm font-semibold text-mea-black mb-2">Width</label>
+                  <select id="jacketChartWidth" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
+                    <option value="Skinny">Skinny</option>
+                    <option value="Slim">Slim</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Loose">Loose</option>
+                    <option value="Extra Loose">Extra Loose</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
               <thead>
                 <tr class="bg-mea-peach-light">
-                  <th class="border border-gray-300 px-3 py-2 text-left font-semibold">Measurement</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">32</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">34</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">36</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">38</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">40</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">42</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">44</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">46</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">48</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">50</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">52</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">54</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">56</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">58</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">60</th>
+                  <th class="px-3 py-2 text-left font-semibold">Measurement</th>
+                  <th class="px-2 py-2 text-center font-semibold">32</th>
+                  <th class="px-2 py-2 text-center font-semibold">34</th>
+                  <th class="px-2 py-2 text-center font-semibold">36</th>
+                  <th class="px-2 py-2 text-center font-semibold">38</th>
+                  <th class="px-2 py-2 text-center font-semibold">40</th>
+                  <th class="px-2 py-2 text-center font-semibold">42</th>
+                  <th class="px-2 py-2 text-center font-semibold">44</th>
+                  <th class="px-2 py-2 text-center font-semibold">46</th>
+                  <th class="px-2 py-2 text-center font-semibold">48</th>
+                  <th class="px-2 py-2 text-center font-semibold">50</th>
+                  <th class="px-2 py-2 text-center font-semibold">52</th>
+                  <th class="px-2 py-2 text-center font-semibold">54</th>
+                  <th class="px-2 py-2 text-center font-semibold">56</th>
+                  <th class="px-2 py-2 text-center font-semibold">58</th>
+                  <th class="px-2 py-2 text-center font-semibold">60</th>
                 </tr>
               </thead>
               <tbody>
@@ -818,7 +886,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">33.5</td>
                 </tr>
                 <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Chest</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Chest</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">35</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">36.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">38</td>
@@ -840,7 +908,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">65</td>
                 </tr>
                 <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Waist</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Waist</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">29</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">30.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">32</td>
@@ -888,7 +956,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">66</td>
                 </tr>
                 <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Shoulder</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Shoulder</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">16.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">17</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">17.5</td>
@@ -897,17 +965,34 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">19</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">19.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">20</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">20.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">21</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">21.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">22</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">22.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
                 </tr>
                 <tr class="bg-red-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Sleeve</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Sleeve</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">23</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">25.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">27</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">27.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">28</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">28.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">29.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">30</td>
                 </tr>
                 <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Bicep</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Bicep</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">14.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">15.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">15.75</td>
@@ -918,7 +1003,12 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">18.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">18.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">19.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">19.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">19.75</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">20.25</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">20.75</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">21.25</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">21.75</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">22.25</td>
                 </tr>
               </tbody>
             </table>
@@ -926,10 +1016,36 @@
         </div>
 
         <!-- Pants Size Chart -->
-        <div id="pantsChart" class="size-chart-content hidden">
-          <div class="mb-4">
-            <h5 class="text-lg font-semibold text-mea-black mb-2">Pants Measurements (Finished Garment)</h5>
-            <p class="text-sm text-mea-dark-gray">All measurements are in inches. Length and Bottom measurements are highlighted in red, Width measurements in blue.</p>
+        <div id="pantsChart" class="size-chart-content active" style="margin-top: 2rem;">
+          <div class="mb-6">
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+              <div class="flex-1">
+                <h5 class="text-2xl font-bold text-mea-black mb-3">Pants Measurements</h5>
+                <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches. <span class="font-semibold text-red-600">Length and Bottom</span> measurements are highlighted in red, <span class="font-bold text-blue-600">Width</span> measurements in blue.</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4 flex-shrink-0">
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
+                  <label class="block text-sm font-semibold text-mea-black mb-2">Length</label>
+                  <select id="pantsChartLength" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
+                    <option value="Extra Short">Extra Short</option>
+                    <option value="Short">Short</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Tall">Tall</option>
+                    <option value="Extra Tall">Extra Tall</option>
+                  </select>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
+                  <label class="block text-sm font-semibold text-mea-black mb-2">Width</label>
+                  <select id="pantsChartWidth" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
+                    <option value="Skinny">Skinny</option>
+                    <option value="Slim">Slim</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Loose">Loose</option>
+                    <option value="Extra Loose">Extra Loose</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -955,7 +1071,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Waist</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Waist</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">29</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">31</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">33</td>
@@ -1005,7 +1121,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">64</td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Crotch</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Crotch</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25</td>
@@ -1023,7 +1139,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">31</td>
                 </tr>
                 <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Thigh</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Thigh</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">26</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">27</td>
@@ -1038,7 +1154,7 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">36</td>
                 </tr>
                 <tr class="bg-red-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Bottom</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Bottom</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">13</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">13.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">14</td>
@@ -1064,95 +1180,9 @@
           </div>
         </div>
 
-        <!-- Custom Measurements Tab -->
-        <div id="customMeasurements" class="size-chart-content hidden">
-          <div class="mb-6">
-            <h5 class="text-lg font-semibold text-mea-black mb-2">Custom Measurements</h5>
-            <p class="text-sm text-mea-dark-gray mb-4">Enter your specific measurements if you need adjustments to the standard sizes. All measurements should be in inches.</p>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Jacket Custom Measurements -->
-            <div class="space-y-4">
-              <h6 class="font-semibold text-mea-peach border-b border-mea-peach pb-2">Jacket Adjustments</h6>
-              <div>
-                <label class="block text-sm font-medium mb-1">Length Adjustment (±inches)</label>
-                <input type="number" id="jacketLengthAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Chest Adjustment (±inches)</label>
-                <input type="number" id="jacketChestAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Waist Adjustment (±inches)</label>
-                <input type="number" id="jacketWaistAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Hip Adjustment (±inches)</label>
-                <input type="number" id="jacketHipAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Shoulder Adjustment (±inches)</label>
-                <input type="number" id="jacketShoulderAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Sleeve Adjustment (±inches)</label>
-                <input type="number" id="jacketSleeveAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Bicep Adjustment (±inches)</label>
-                <input type="number" id="jacketBicepAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-            </div>
-
-            <!-- Pants Custom Measurements -->
-            <div class="space-y-4">
-              <h6 class="font-semibold text-mea-peach border-b border-mea-peach pb-2">Pants Adjustments</h6>
-              <div>
-                <label class="block text-sm font-medium mb-1">Waist Adjustment (±inches)</label>
-                <input type="number" id="pantsWaistAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Hip Adjustment (±inches)</label>
-                <input type="number" id="pantsHipAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-3" max="3">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Crotch Adjustment (±inches)</label>
-                <input type="number" id="pantsCrotchAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Thigh Adjustment (±inches)</label>
-                <input type="number" id="pantsThighAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Bottom Adjustment (±inches)</label>
-                <input type="number" id="pantsBottomAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Length Adjustment (±inches)</label>
-                <input type="number" id="pantsLengthAdjust" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="0" step="0.25" min="-2" max="2">
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6 p-4 bg-mea-peach-light rounded-lg">
-            <h6 class="font-semibold text-mea-black mb-2">Measurement Guide</h6>
-            <ul class="text-sm text-mea-dark-gray space-y-1">
-              <li>• <strong>Length:</strong> Distance from shoulder to desired jacket length</li>
-              <li>• <strong>Chest:</strong> Circumference around the fullest part of the bust</li>
-              <li>• <strong>Waist:</strong> Circumference at the narrowest part of the waist</li>
-              <li>• <strong>Hip:</strong> Circumference around the fullest part of the hips</li>
-              <li>• <strong>Shoulder:</strong> Distance from shoulder point to shoulder point</li>
-              <li>• <li>• <strong>Sleeve:</strong> Distance from shoulder to desired sleeve length</li>
-              <li>• <strong>Bicep:</strong> Circumference around the fullest part of the upper arm</li>
-            </ul>
-          </div>
-        </div>
-
         <!-- Action Buttons -->
-        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-          <button id="saveCustomMeasurements" class="bg-mea-peach text-white px-6 py-2 rounded hover:bg-[#ff9770] transition">Save Custom Measurements</button>
-          <button id="closeSizeChart" class="text-mea-peach px-6 py-2 rounded hover:underline">Close</button>
+        <div class="flex justify-center mt-6 pt-4 border-t border-gray-200">
+          <button id="closeSizeChart" class="bg-mea-peach text-white px-8 py-3 rounded-xl transition-all duration-200 shadow-lg">Close</button>
         </div>
       </div>
     </div>
@@ -1371,7 +1401,6 @@
                     sizes: {},
                     measurement: {},
                     style: {},
-                    customMeasurements: {},
                     step: section,
                     sessionId: sessionId,
                     timestamp: new Date().toISOString()
@@ -1415,16 +1444,7 @@
                     });
                 }
 
-                // Custom Measurements (always collected)
-                const savedCustomMeasurements = localStorage.getItem('meaCustomMeasurements');
-                if (savedCustomMeasurements) {
-                    try {
-                        formData.customMeasurements = JSON.parse(savedCustomMeasurements);
-                    } catch (e) {
-                        console.warn('Error parsing custom measurements:', e);
-                        formData.customMeasurements = {};
-                    }
-                }
+
 
                 console.log('Collected form data:', JSON.stringify(formData, null, 2));
                 return formData;
@@ -2077,166 +2097,67 @@
             });
           }
 
-          // Size Chart Tab Functionality
-          const sizeChartTabs = document.querySelectorAll('.size-chart-tab');
-          const sizeChartContents = document.querySelectorAll('.size-chart-content');
+          // Size Chart Dropdown Functionality
+          const jacketChartLength = document.getElementById('jacketChartLength');
+          const jacketChartWidth = document.getElementById('jacketChartWidth');
+          const pantsChartLength = document.getElementById('pantsChartLength');
+          const pantsChartWidth = document.getElementById('pantsChartWidth');
+
+          // Sync chart dropdowns with main form dropdowns
+          if (jacketChartLength && jacketLengthSel) {
+            jacketChartLength.addEventListener('change', function() {
+              jacketLengthSel.value = this.value;
+              updatePreviews();
+            });
+          }
           
-          sizeChartTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-              const targetTab = tab.getAttribute('data-tab');
-              
-              // Update active tab
-              sizeChartTabs.forEach(t => {
-                t.classList.remove('active');
-                t.classList.remove('border-mea-peach', 'text-mea-peach');
-                t.classList.add('text-gray-500');
-              });
-              tab.classList.add('active', 'border-mea-peach', 'text-mea-peach');
-              tab.classList.remove('text-gray-500');
-              
-              // Show target content
-              sizeChartContents.forEach(content => {
-                content.classList.remove('active');
-                content.classList.add('hidden');
-              });
-              
-              const targetContent = document.getElementById(targetTab + (targetTab === 'custom' ? 'Measurements' : 'Chart'));
-              if (targetContent) {
-                targetContent.classList.remove('hidden');
-                targetContent.classList.add('active');
-              }
+          if (jacketChartWidth && jacketWidthSel) {
+            jacketChartWidth.addEventListener('change', function() {
+              jacketWidthSel.value = this.value;
+              updatePreviews();
             });
-          });
-
-          // Custom Measurements Functionality
-          const saveCustomMeasurementsBtn = document.getElementById('saveCustomMeasurements');
-          if (saveCustomMeasurementsBtn) {
-            saveCustomMeasurementsBtn.addEventListener('click', () => {
-              // Collect all custom measurement values
-              const customMeasurements = {
-                jacket: {
-                  length: document.getElementById('jacketLengthAdjust')?.value || '0',
-                  chest: document.getElementById('jacketChestAdjust')?.value || '0',
-                  waist: document.getElementById('jacketWaistAdjust')?.value || '0',
-                  hip: document.getElementById('jacketHipAdjust')?.value || '0',
-                  shoulder: document.getElementById('jacketShoulderAdjust')?.value || '0',
-                  sleeve: document.getElementById('jacketSleeveAdjust')?.value || '0',
-                  bicep: document.getElementById('jacketBicepAdjust')?.value || '0'
-                },
-                pants: {
-                  waist: document.getElementById('pantsWaistAdjust')?.value || '0',
-                  hip: document.getElementById('pantsHipAdjust')?.value || '0',
-                  crotch: document.getElementById('pantsCrotchAdjust')?.value || '0',
-                  thigh: document.getElementById('pantsThighAdjust')?.value || '0',
-                  bottom: document.getElementById('pantsBottomAdjust')?.value || '0',
-                  length: document.getElementById('pantsLengthAdjust')?.value || '0'
-                }
-              };
-
-              // Save to localStorage
-              localStorage.setItem('meaCustomMeasurements', JSON.stringify(customMeasurements));
-              
-              // Show success message
-              const successMessage = document.createElement('div');
-              successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50';
-              successMessage.textContent = 'Custom measurements saved successfully!';
-              document.body.appendChild(successMessage);
-              setTimeout(() => successMessage.remove(), 3000);
-              
-              // Close the modal
-              sizeChartModal.classList.add('hidden');
+          }
+          
+          if (pantsChartLength && pantsLengthSel) {
+            pantsChartLength.addEventListener('change', function() {
+              pantsLengthSel.value = this.value;
+              updatePreviews();
+            });
+          }
+          
+          if (pantsChartWidth && pantsWidthSel) {
+            pantsChartWidth.addEventListener('change', function() {
+              pantsWidthSel.value = this.value;
+              updatePreviews();
             });
           }
 
-          // Load custom measurements on page load
-          function loadCustomMeasurements() {
-            const savedMeasurements = localStorage.getItem('meaCustomMeasurements');
-            if (savedMeasurements) {
-              const measurements = JSON.parse(savedMeasurements);
-              
-              // Load jacket measurements
-              if (measurements.jacket) {
-                Object.keys(measurements.jacket).forEach(key => {
-                  const element = document.getElementById(`jacket${key.charAt(0).toUpperCase() + key.slice(1)}Adjust`);
-                  if (element) {
-                    element.value = measurements.jacket[key];
-                  }
-                });
-              }
-              
-              // Load pants measurements
-              if (measurements.pants) {
-                Object.keys(measurements.pants).forEach(key => {
-                  const element = document.getElementById(`pants${key.charAt(0).toUpperCase() + key.slice(1)}Adjust`);
-                  if (element) {
-                    element.value = measurements.pants[key];
-                  }
-                });
-              }
-            }
+          // Sync main form dropdowns with chart dropdowns
+          if (jacketLengthSel && jacketChartLength) {
+            jacketLengthSel.addEventListener('change', function() {
+              jacketChartLength.value = this.value;
+            });
+          }
+          
+          if (jacketWidthSel && jacketChartWidth) {
+            jacketWidthSel.addEventListener('change', function() {
+              jacketChartWidth.value = this.value;
+            });
+          }
+          
+          if (pantsLengthSel && pantsChartLength) {
+            pantsLengthSel.addEventListener('change', function() {
+              pantsChartLength.value = this.value;
+            });
+          }
+          
+          if (pantsWidthSel && pantsChartWidth) {
+            pantsWidthSel.addEventListener('change', function() {
+              pantsChartWidth.value = this.value;
+            });
           }
 
-          // Load custom measurements when size chart modal opens
-          if (openSizeChart) {
-            openSizeChart.addEventListener('click', loadCustomMeasurements);
-          }
 
-          // Function to apply custom measurements to size selection
-          function applyCustomMeasurementsToSize() {
-            const savedMeasurements = localStorage.getItem('meaCustomMeasurements');
-            if (savedMeasurements) {
-              try {
-                const measurements = JSON.parse(savedMeasurements);
-                
-                // Update size previews to show custom adjustments
-                const jacketPreview = document.getElementById('jacketPreview');
-                const pantsPreview = document.getElementById('pantsPreview');
-                
-                if (jacketPreview && measurements.jacket) {
-                  const jacketSize = document.getElementById('jacketSize')?.value || '';
-                  const jacketLength = document.getElementById('jacketLength')?.value || '';
-                  const jacketWidth = document.getElementById('jacketWidth')?.value || '';
-                  
-                  if (jacketSize && jacketLength && jacketWidth) {
-                    let customNote = '';
-                    const hasAdjustments = Object.values(measurements.jacket).some(val => parseFloat(val) !== 0);
-                    if (hasAdjustments) {
-                      customNote = ' (with custom adjustments)';
-                    }
-                    jacketPreview.textContent = `${jacketSize} / ${jacketLength} / ${jacketWidth}${customNote}`;
-                  }
-                }
-                
-                if (pantsPreview && measurements.pants) {
-                  const pantsSize = document.getElementById('pantsSize')?.value || '';
-                  const pantsLength = document.getElementById('pantsLength')?.value || '';
-                  const pantsWidth = document.getElementById('pantsWidth')?.value || '';
-                  
-                  if (pantsSize && pantsLength && pantsWidth) {
-                    let customNote = '';
-                    const hasAdjustments = Object.values(measurements.pants).some(val => parseFloat(val) !== 0);
-                    if (hasAdjustments) {
-                      customNote = ' (with custom adjustments)';
-                    }
-                    pantsPreview.textContent = `${pantsSize} / ${pantsLength} / ${pantsWidth}${customNote}`;
-                  }
-                }
-              } catch (e) {
-                console.warn('Error applying custom measurements:', e);
-              }
-            }
-          }
-
-          // Apply custom measurements when size form changes
-          const sizeFormElements = [jacketSizeSel, jacketLengthSel, jacketWidthSel, pantsSizeSel, pantsLengthSel, pantsWidthSel];
-          sizeFormElements.forEach(el => {
-            if (el) {
-              el.addEventListener('change', applyCustomMeasurementsToSize);
-            }
-          });
-
-          // Apply custom measurements on page load
-          setTimeout(applyCustomMeasurementsToSize, 100);
 
           var fabricColorSelect = document.getElementById('fabricColorSelect');
           var fabricColorOtherInput = document.getElementById('fabricColorOtherInput');
