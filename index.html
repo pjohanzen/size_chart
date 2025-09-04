@@ -169,56 +169,48 @@
         }
         
         .size-chart-content table {
-            font-size: 0.75rem;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: none;
+            font-size: 0.875rem;
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
+            background: white;
+            width: 100%;
         }
         
         .size-chart-content th,
         .size-chart-content td {
             padding: 0.5rem 0.25rem;
             text-align: center;
-            border: none;
+            border: 1px solid #d1d5db;
             position: relative;
+            min-width: 40px;
+            white-space: nowrap;
         }
         
         .size-chart-content th:first-child,
         .size-chart-content td:first-child {
             text-align: left;
-            padding-left: 1rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
             font-weight: 600;
             color: #1f2937;
+            min-width: 80px;
+            background: #f9fafb;
         }
         
         .size-chart-content th {
-            background: linear-gradient(135deg, #fef2f2 0%, #ffe8e2 100%);
-            font-weight: 700;
+            background: #f9fafb;
+            font-weight: 600;
             color: #374151;
-            font-size: 0.75rem;
-            letter-spacing: 0.025em;
-            text-transform: uppercase;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #d1d5db;
         }
         
-        .size-chart-content .bg-red-50 {
-            background: linear-gradient(135deg, #fef2f2 0%, #fecaca 20%);
-        }
-        
-        .size-chart-content .bg-blue-50 {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 20%);
-        }
-        
-        .size-chart-content .bg-mea-peach-light {
-            background: linear-gradient(135deg, #ffe8e2 0%, #ffb6a3 20%);
+        .size-chart-content tbody tr {
+            background-color: #ffffff;
         }
         
         .size-chart-content tbody tr:nth-child(even) {
-            background-color: #fafbfc;
-        }
-        
-        .size-chart-content tbody tr:nth-child(odd) {
-            background-color: #ffffff;
+            background-color: #f9fafb;
         }
         
         .size-chart-content td {
@@ -227,7 +219,7 @@
         }
         
         .size-chart-content th:not(:first-child) {
-            min-width: 50px;
+            min-width: 40px;
         }
         
         .size-chart-content .measurement-label {
@@ -566,14 +558,13 @@
         <!-- Step 2: Pick Your Size -->
         <div id="orderStep2" class="order-step hidden">
           <h3 class="serif text-2xl sm:text-3xl mb-3 text-center text-mea-peach">Pick Your Size</h3>
-          <p class="mb-6 text-center text-sm text-mea-dark-gray max-w-2xl mx-auto">Jacket size is based on your bust measurement. The numbers below are finished garment measurements, not body measurements.</p>
           <div class="flex flex-col md:flex-row gap-6 md:gap-10">
             <!-- Jacket -->
             <div class="flex-1 border border-mea-peach rounded-2xl p-4 md:p-6 bg-white shadow-sm">
               <div class="text-mea-peach font-semibold uppercase text-sm mb-3 tracking-widest">Jacket</div>
               <form id="sizeForm" class="space-y-4">
                 <div>
-                  <label class="block text-xs font-semibold mb-1">Size</label>
+                  <label class="block text-xs font-semibold mb-1">Bust Size</label>
                   <select id="jacketSize" name="jacketSize" class="border rounded px-2 py-1 w-full"></select>
                 </div>
                 <div>
@@ -604,7 +595,7 @@
               <div class="text-mea-peach font-semibold uppercase text-sm mb-3 tracking-widest">Pants</div>
               <div class="space-y-4">
                 <div>
-                  <label class="block text-xs font-semibold mb-1">Size</label>
+                  <label class="block text-xs font-semibold mb-1">Waist Size</label>
                   <select id="pantsSize" name="pantsSize" class="border rounded px-2 py-1 w-full"></select>
                 </div>
                 <div>
@@ -805,50 +796,49 @@
       <div class="bg-white w-full max-w-7xl rounded-3xl shadow-2xl p-8 relative max-h-[95vh] overflow-y-auto">
         <button id="closeSizeChart" class="absolute top-6 right-8 text-mea-dark-gray hover:text-mea-peach text-4xl font-bold transition-all duration-200">&times;</button>
         <h4 class="serif text-3xl mb-6 text-mea-peach text-center">Size Chart</h4>
+        <h5 class="text-2xl font-bold text-mea-black mb-6 text-center">Mea</h5>
         
         <div class="bg-gradient-to-r from-mea-peach-light to-pink-50 rounded-2xl p-6 mb-8">
           <p class="text-base text-mea-dark-gray text-center max-w-4xl mx-auto leading-relaxed">
-            <span class="font-semibold text-mea-black">Important:</span> The measurements in these tables are NOT body measurements. They are the measurements used to make the clothing and include some extra room added to body measurements.
+            <span class="font-semibold text-mea-black">Beware:</span> The measurements in these tables are NOT body measurements. They are the measurements used to make the clothing and include extra room added to body measurements.
           </p>
         </div>
 
         <!-- Jacket Size Chart -->
         <div id="jacketChart" class="size-chart-content active">
-          <div class="mb-6">
-            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
-              <div class="flex-1">
-                <h5 class="text-2xl font-bold text-mea-black mb-3">Jacket Measurements</h5>
-                <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches. <span class="font-semibold text-red-600">Length and Sleeve</span> measurements are highlighted in red, <span class="font-semibold text-blue-600">Width</span> measurements in blue.</p>
+          <div class="flex flex-col md:flex-row items-center justify-between mb-4">
+            <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Jacket</h5>
+            <div class="flex gap-4 items-center">
+              <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
+                <select id="jacketChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                  <option value="Extra Short">Extra Short</option>
+                  <option value="Short">Short</option>
+                  <option value="Regular" selected>Regular</option>
+                  <option value="Tall">Tall</option>
+                  <option value="Extra Tall">Extra Tall</option>
+                </select>
               </div>
-              <div class="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
-                  <label class="block text-sm font-semibold text-mea-black mb-2">Length</label>
-                  <select id="jacketChartLength" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
-                    <option value="Extra Short">Extra Short</option>
-                    <option value="Short">Short</option>
-                    <option value="Regular" selected>Regular</option>
-                    <option value="Tall">Tall</option>
-                    <option value="Extra Tall">Extra Tall</option>
-                  </select>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
-                  <label class="block text-sm font-semibold text-mea-black mb-2">Width</label>
-                  <select id="jacketChartWidth" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
-                    <option value="Skinny">Skinny</option>
-                    <option value="Slim">Slim</option>
-                    <option value="Regular" selected>Regular</option>
-                    <option value="Loose">Loose</option>
-                    <option value="Extra Loose">Extra Loose</option>
-                  </select>
-                </div>
+              <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
+                <select id="jacketChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                  <option value="Skinny">Skinny</option>
+                  <option value="Slim">Slim</option>
+                  <option value="Regular" selected>Regular</option>
+                  <option value="Loose">Loose</option>
+                  <option value="Extra Loose">Extra Loose</option>
+                </select>
               </div>
             </div>
+          </div>
+          <div class="mb-6">
+            <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
               <thead>
-                <tr class="bg-mea-peach-light">
-                  <th class="px-3 py-2 text-left font-semibold">Measurement</th>
+                <tr>
+                  <th class="px-3 py-2 text-left font-semibold"></th>
                   <th class="px-2 py-2 text-center font-semibold">32</th>
                   <th class="px-2 py-2 text-center font-semibold">34</th>
                   <th class="px-2 py-2 text-center font-semibold">36</th>
@@ -867,148 +857,95 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="bg-red-50">
+                <tr>
                   <td class="border border-gray-300 px-3 py-2 font-medium">Length</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">26</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">26.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">27</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">27.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">27.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">27.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">28</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">29.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">30</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">30.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">31</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">31.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">32</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">32.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">33.5</td>
                 </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Chest</td>
+                <tr>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Chest</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">35</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">36.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">38</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">37</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">41</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">42.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">44</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">45.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">43</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">45</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">47</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">48.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">50</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">51.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">53</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">54.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">56</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">58</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">60</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">62</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">65</td>
-                </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Waist</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">30.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">32</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">33.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">35</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">36.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">38</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">41</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">42.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">44</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">45.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">47</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">48.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">50</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">52</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">54</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">56</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">58</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">60</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">62</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">63</td>
-                </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium">Hip</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">36</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">37.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">40.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">42</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">43.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">45</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">46.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">48</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">49.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">51</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">52.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">54</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">55.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">57</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">59</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">61</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">63</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">65</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Waist</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">31</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">33</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">35</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">37</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">40</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">42</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">45</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">48</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">50</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">52</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">56</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">58</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">61</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">63</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Hip</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">36</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">38</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">40</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">42</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">44</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">46</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">48</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">51</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">53</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">55</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">57</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">60</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">62</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">64</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">66</td>
                 </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Shoulder</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">16.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">17</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">17.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">18</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">18.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">19</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">19.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">20</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">20.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">21</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">21.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">22</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">22.5</td>
+                <tr>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Sleeve</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">23</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
-                </tr>
-                <tr class="bg-red-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Sleeve</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">23</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">23.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">24</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">24</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">24.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">24.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">25.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">26</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">26.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">27</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">27.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">30</td>
-                </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Bicep</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">14.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">15.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">15.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">16.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">16.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">17.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">17.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">18.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">18.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">19.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">19.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">20.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">20.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">21.25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">21.75</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">22.25</td>
                 </tr>
               </tbody>
             </table>
@@ -1017,61 +954,59 @@
 
         <!-- Pants Size Chart -->
         <div id="pantsChart" class="size-chart-content active" style="margin-top: 2rem;">
-          <div class="mb-6">
-            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
-              <div class="flex-1">
-                <h5 class="text-2xl font-bold text-mea-black mb-3">Pants Measurements</h5>
-                <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches. <span class="font-semibold text-red-600">Length and Bottom</span> measurements are highlighted in red, <span class="font-bold text-blue-600">Width</span> measurements in blue.</p>
+          <div class="flex flex-col md:flex-row items-center justify-between mb-4">
+            <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Pants</h5>
+            <div class="flex gap-4 items-center">
+              <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
+                <select id="pantsChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                  <option value="Extra Short">Extra Short</option>
+                  <option value="Short">Short</option>
+                  <option value="Regular" selected>Regular</option>
+                  <option value="Tall">Tall</option>
+                  <option value="Extra Tall">Extra Tall</option>
+                </select>
               </div>
-              <div class="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
-                  <label class="block text-sm font-semibold text-mea-black mb-2">Length</label>
-                  <select id="pantsChartLength" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
-                    <option value="Extra Short">Extra Short</option>
-                    <option value="Short">Short</option>
-                    <option value="Regular" selected>Regular</option>
-                    <option value="Tall">Tall</option>
-                    <option value="Extra Tall">Extra Tall</option>
-                  </select>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 min-w-[140px]">
-                  <label class="block text-sm font-semibold text-mea-black mb-2">Width</label>
-                  <select id="pantsChartWidth" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-mea-peach focus:ring-2 focus:ring-mea-peach-light transition-all duration-200">
-                    <option value="Skinny">Skinny</option>
-                    <option value="Slim">Slim</option>
-                    <option value="Regular" selected>Regular</option>
-                    <option value="Loose">Loose</option>
-                    <option value="Extra Loose">Extra Loose</option>
-                  </select>
-                </div>
+              <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
+                <select id="pantsChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                  <option value="Skinny">Skinny</option>
+                  <option value="Slim">Slim</option>
+                  <option value="Regular" selected>Regular</option>
+                  <option value="Loose">Loose</option>
+                  <option value="Extra Loose">Extra Loose</option>
+                </select>
               </div>
             </div>
+          </div>
+          <div class="mb-6">
+            <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
               <thead>
-                <tr class="bg-mea-peach-light">
-                  <th class="border border-gray-300 px-3 py-2 text-left font-semibold">Measurement</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">28</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">30</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">32</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">34</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">36</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">38</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">40</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">42</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">44</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">46</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">48</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">50</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">52</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">54</th>
-                  <th class="border border-gray-300 px-2 py-2 text-center font-semibold">56</th>
+                <tr>
+                  <th class="px-3 py-2 text-left font-semibold"></th>
+                  <th class="px-2 py-2 text-center font-semibold">28</th>
+                  <th class="px-2 py-2 text-center font-semibold">30</th>
+                  <th class="px-2 py-2 text-center font-semibold">32</th>
+                  <th class="px-2 py-2 text-center font-semibold">34</th>
+                  <th class="px-2 py-2 text-center font-semibold">36</th>
+                  <th class="px-2 py-2 text-center font-semibold">38</th>
+                  <th class="px-2 py-2 text-center font-semibold">40</th>
+                  <th class="px-2 py-2 text-center font-semibold">42</th>
+                  <th class="px-2 py-2 text-center font-semibold">44</th>
+                  <th class="px-2 py-2 text-center font-semibold">46</th>
+                  <th class="px-2 py-2 text-center font-semibold">48</th>
+                  <th class="px-2 py-2 text-center font-semibold">50</th>
+                  <th class="px-2 py-2 text-center font-semibold">52</th>
+                  <th class="px-2 py-2 text-center font-semibold">54</th>
+                  <th class="px-2 py-2 text-center font-semibold">56</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Waist</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Waist</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">29</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">31</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">33</td>
@@ -1088,91 +1023,76 @@
                   <td class="border border-gray-300 px-2 py-2 text-center">55</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">57</td>
                 </tr>
-                <tr class="bg-blue-50">
+                <tr>
                   <td class="border border-gray-300 px-3 py-2 font-medium">Hip</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">36</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">37</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">38</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">40</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">41</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">42</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">43</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">44</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">45</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">46</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">47</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">48</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">49</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">50</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">51</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">52</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">53</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">54</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">55</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">56</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">57</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">58</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">59</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">60</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">61</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">62</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">63</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">64</td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Crotch</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">24</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">24.5</td>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Thigh</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">25.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">26</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">26.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">27</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">26.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">27.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">28.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">29</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">30</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">29.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">30.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">31</td>
-                </tr>
-                <tr class="bg-blue-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Thigh</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">25</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">26</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">27</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">28</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">29</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">30</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">31</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">31.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">32</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">33</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">34</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">35</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">36</td>
                 </tr>
-                <tr class="bg-red-50">
-                  <td class="border border-gray-300 px-3 py-2 font-medium measurement-label">Bottom</td>
+                <tr>
+                  <td class="border border-gray-300 px-3 py-2 font-medium">Bottom</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">13</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">13.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">13.25</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">13.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">14</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">14.5</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">15</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">14.75</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">15.25</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">15.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">16</td>
-                  <td class="border border-gray-300 px-2 py-2 text-center">16.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">16.25</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">16.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">17</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">17.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">17.75</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">18</td>
                 </tr>
-                <tr class="bg-red-50">
+                <tr>
                   <td class="border border-gray-300 px-3 py-2 font-medium">Length</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">38</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">38</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">38.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">38.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">38.5</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">39</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">39.5</td>
+                  <td class="border border-gray-300 px-2 py-2 text-center">40</td>
                   <td class="border border-gray-300 px-2 py-2 text-center">40</td>
                 </tr>
               </tbody>
