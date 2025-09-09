@@ -63,10 +63,38 @@
         }
     </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfcfc;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fcfcfc;
+      /* Base line-height to control spacing between lines */
+      line-height: 1.45;
+      /* Slightly tighter paragraph spacing by default */
+      color: #111827;
+    }
+
+    /* Global text spacing adjustments */
+    p {
+      margin-top: 0;
+      margin-bottom: 0.75rem; /* reduce default gap between paragraphs */
+      line-height: 1.5; /* keep paragraphs readable */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+      margin-bottom: 0.6rem; /* tighten spacing under headings */
+      line-height: 1.15; /* headings more compact */
+    }
+
+    /* Small helper class to further tighten or relax spacing when needed */
+    .tight-spacing {
+      line-height: 1.15 !important;
+      margin-bottom: 0.4rem !important;
+    }
+
+    .relaxed-spacing {
+      line-height: 1.75 !important;
+      margin-bottom: 1.25rem !important;
+    }
         .serif {
             font-family: 'DM Serif Display', serif;
         }
@@ -81,6 +109,7 @@
         }
         .text-gradient {
             background: linear-gradient(to right, #111111, #555555);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -167,6 +196,14 @@
         .size-chart-content {
             display: block;
         }
+        /* Helper image for size chart (desktop only) */
+        .chart-helper-img {
+            width: 100px;
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            .chart-helper-img { display: none; }
+        }
         
         .size-chart-content table {
             font-size: 0.875rem;
@@ -175,6 +212,18 @@
             background: white;
             width: 100%;
         }
+
+    /* Align dropdown controls vertically with helper image on larger screens */
+    .chart-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .chart-controls {
+        margin-top: 1.25rem; /* nudge controls down on md+ */
+      }
+    }
         
         .size-chart-content th,
         .size-chart-content td {
@@ -807,7 +856,7 @@
         <div id="jacketChart" class="size-chart-content active">
           <div class="flex flex-col md:flex-row items-center justify-between mb-4">
             <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Jacket</h5>
-            <div class="flex gap-4 items-center">
+            <div class="flex gap-4 items-center chart-controls">
               <div class="flex items-center gap-2">
                 <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
                 <select id="jacketChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
@@ -830,8 +879,13 @@
               </div>
             </div>
           </div>
-          <div class="mb-6">
-            <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
+          <div class="mb-6 flex items-start justify-between gap-6">
+            <div>
+              <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
+              <p class="text-base text-mea-dark-gray leading-relaxed mt-2">Bust measurement is taken around the widest part of your chest.</p>
+            </div>
+            <!-- Non-clickable helper image: visual guide only -->
+            <img src="bust.png" alt="Bust measurement guide showing high vs full bust" class="chart-helper-img border border-mea-peach rounded-lg" style="cursor:default;" />
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -973,7 +1027,7 @@
         <div id="pantsChart" class="size-chart-content active" style="margin-top: 2rem;">
           <div class="flex flex-col md:flex-row items-center justify-between mb-4">
             <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Pants</h5>
-            <div class="flex gap-4 items-center">
+            <div class="flex gap-4 items-center chart-controls">
               <div class="flex items-center gap-2">
                 <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
                 <select id="pantsChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
@@ -996,8 +1050,16 @@
               </div>
             </div>
           </div>
-          <div class="mb-6">
-            <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
+          <div class="mb-6 flex items-start justify-between gap-6">
+            <div>
+              <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
+              <div class="mt-2 flex items-center gap-4">
+                <p class="text-base text-mea-dark-gray leading-relaxed mb-0">Pant Waist is taken just above your pants waistband.</p>
+                <img src="pants.jpg" alt="Pant waist guide showing where to measure" class="chart-helper-img border border-mea-peach rounded-lg" style="cursor:default;" />
+              </div>
+            </div>
+            <!-- spacer kept for layout consistency -->
+            <div aria-hidden="true" class="hidden md:block" style="width:108px;"></div>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -1179,7 +1241,7 @@
                     };
 
                     // Send to Google Apps Script
-                    fetch('https://script.google.com/macros/s/AKfycbyGcNk9spSC-RbleKfLL16aCpcAzubqxOqNpdNf3w2ZxW-LoxZ1SQ4LQcb5BcsUjlQ/exec', {
+                    fetch('https://script.google.com/macros/s/AKfycbxfvmHYUSF16TiQjyrN-PKWsXZBo4REKyFcICiO7hDTvOQEiPZdp6IASvNTI1lNx46O/exec', {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
@@ -1420,7 +1482,7 @@
                 }
 
                 // Ensure the Google Apps Script URL is correct
-                const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzJjwOIgZgKtbZ-nuWD2FNvC_-r4N4eIfv5QCSKGCQU43UTbJYEdg4npcHLk92fzwQQ/exec';
+                const googleScriptURL = 'https://script.google.com/macros/s/AKfycbyS7djitUJhd2AYIMM-YWlX6cv9xNfNFE0RVdVVFK22X8Bm6Rys5qAuuPJduEGHhSpV/exec';
 
                 console.log('Sending data to:', googleScriptURL);
                 console.log('Request payload:', JSON.stringify(data, null, 2));
@@ -2039,7 +2101,9 @@
           // Size chart modal behavior
           const sizeChartModal = document.getElementById('sizeChartModal');
           const openSizeChart = document.getElementById('openSizeChart');
-          const closeSizeChart = document.getElementById('closeSizeChart');
+          // There are multiple elements using the same id for the close button (top × and bottom Close).
+          // Use querySelectorAll and attach listeners to all to ensure the visible Close button works.
+          const closeSizeChartEls = document.querySelectorAll('#closeSizeChart');
           if (openSizeChart && sizeChartModal) {
             openSizeChart.addEventListener('click', () => {
               sizeChartModal.classList.remove('hidden');
@@ -2048,8 +2112,12 @@
               updateChartMeasurements('pants');
             });
           }
-          if (closeSizeChart && sizeChartModal) {
-            closeSizeChart.addEventListener('click', () => sizeChartModal.classList.add('hidden'));
+          if (closeSizeChartEls.length > 0 && sizeChartModal) {
+            closeSizeChartEls.forEach(function(btn) {
+              btn.addEventListener('click', function() {
+                sizeChartModal.classList.add('hidden');
+              });
+            });
           }
           if (sizeChartModal) {
             sizeChartModal.addEventListener('click', (e) => {
@@ -2296,6 +2364,38 @@
           }
         });
     </script>
+<script>
+// Ensure the bust helper image appears inline next to the description
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const jacketChart = document.getElementById('jacketChart');
+    if (!jacketChart) return;
+
+    // Remove any previously injected helper images to avoid duplicates
+    jacketChart.querySelectorAll('img.chart-helper-img').forEach(img => img.remove());
+
+    // Find the paragraph that contains the bust measurement sentence
+    const bustPara = Array.from(jacketChart.querySelectorAll('p')).find(p => /bust measurement/i.test(p.textContent));
+    if (!bustPara) return;
+
+    // Wrap the paragraph and image together inline
+    const wrapper = document.createElement('div');
+    wrapper.className = 'mt-2 flex items-center gap-4';
+    bustPara.replaceWith(wrapper);
+    wrapper.appendChild(bustPara);
+
+  const img = document.createElement('img');
+  img.src = 'bust.png'; // image placed next to mea/index.html
+  img.alt = 'Bust measurement guide showing high vs full bust';
+  img.className = 'chart-helper-img border border-mea-peach rounded-lg';
+  // Make helper image non-clickable (visual guide only)
+  img.style.cursor = 'default';
+    wrapper.appendChild(img);
+  } catch (e) {
+    console.warn('Failed to inject bust helper image:', e);
+  }
+});
+</script>
 </body>
 </html>
     </script>
