@@ -196,11 +196,12 @@
         .size-chart-content {
             display: block;
         }
-        /* Helper image for size chart (desktop only) */
-        .chart-helper-img {
-            width: 100px;
-            height: auto;
-        }
+    /* Helper image for size chart (desktop only) - enlarged and responsive */
+    .chart-helper-img {
+      width: 220px; /* larger default width on desktop */
+      max-width: 35%; /* keep it responsive within the chart area */
+      height: auto;
+    }
         @media (max-width: 768px) {
             .chart-helper-img { display: none; }
         }
@@ -2209,11 +2210,14 @@
               const increment = typeIncrements[measurementType] || 0;
               
               // Determine if this measurement is affected by length or width
+              // NOTE: chest (jacket), waist (pants) and rise (pants) should remain constant per request
               let multiplier = 0;
-              if (measurementType === 'length' || measurementType === 'sleeve' || measurementType === 'rise') {
+              // Measurements affected by length changes
+              if (measurementType === 'length' || measurementType === 'sleeve') {
                 multiplier = lengthMultiplier;
-              } else if (measurementType === 'chest' || measurementType === 'waist' || measurementType === 'hip' || 
-                        measurementType === 'bicep' || measurementType === 'thigh' || measurementType === 'bottom') {
+              }
+              // Measurements affected by width changes (exclude chest & waist)
+              else if (measurementType === 'hip' || measurementType === 'bicep' || measurementType === 'thigh' || measurementType === 'bottom') {
                 multiplier = widthMultiplier;
               }
               
