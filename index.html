@@ -880,13 +880,15 @@
               </div>
             </div>
           </div>
-          <div class="mb-6 flex items-start justify-between gap-6">
-            <div>
-              <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
-              <p class="text-base text-mea-dark-gray leading-relaxed mt-2">Bust measurement is taken around the widest part of your chest.</p>
+          <div class="mb-6">
+            <div class="flex items-start gap-3">
+              <div>
+                <p class="text-base text-mea-dark-gray leading-tight mb-1">All measurements are in inches.</p>
+                <p class="text-base text-mea-dark-gray leading-tight">Bust measurement is taken around the widest part of your chest.</p>
+              </div>
+              <!-- Non-clickable helper image: visual guide only -->
+              <img src="bust.png" alt="Bust measurement guide showing high vs full bust" class="w-48 h-auto border border-mea-peach rounded-lg flex-shrink-0" style="cursor:default;" />
             </div>
-            <!-- Non-clickable helper image: visual guide only -->
-            <img src="bust.png" alt="Bust measurement guide showing high vs full bust" class="chart-helper-img border border-mea-peach rounded-lg" style="cursor:default;" />
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -1051,16 +1053,15 @@
               </div>
             </div>
           </div>
-          <div class="mb-6 flex items-start justify-between gap-6">
-            <div>
-              <p class="text-base text-mea-dark-gray leading-relaxed">All measurements are in inches.</p>
-              <div class="mt-2 flex items-center gap-4">
-                <p class="text-base text-mea-dark-gray leading-relaxed mb-0">Pant Waist is taken just above your pants waistband.</p>
-                <img src="pants.jpg" alt="Pant waist guide showing where to measure" class="chart-helper-img border border-mea-peach rounded-lg" style="cursor:default;" />
+          <div class="mb-6">
+            <div class="flex items-start gap-3">
+              <div>
+                <p class="text-base text-mea-dark-gray leading-tight mb-1">All measurements are in inches.</p>
+                <p class="text-base text-mea-dark-gray leading-tight">Pant Waist is taken just above your pants waistband.</p>
               </div>
+              <!-- Non-clickable helper image: visual guide only -->
+              <img src="pants.jpg" alt="Pant waist guide showing where to measure" class="w-48 h-auto border border-mea-peach rounded-lg flex-shrink-0" style="cursor:default;" />
             </div>
-            <!-- spacer kept for layout consistency -->
-            <div aria-hidden="true" class="hidden md:block" style="width:108px;"></div>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -2368,38 +2369,6 @@
           }
         });
     </script>
-<script>
-// Ensure the bust helper image appears inline next to the description
-document.addEventListener('DOMContentLoaded', function () {
-  try {
-    const jacketChart = document.getElementById('jacketChart');
-    if (!jacketChart) return;
-
-    // Remove any previously injected helper images to avoid duplicates
-    jacketChart.querySelectorAll('img.chart-helper-img').forEach(img => img.remove());
-
-    // Find the paragraph that contains the bust measurement sentence
-    const bustPara = Array.from(jacketChart.querySelectorAll('p')).find(p => /bust measurement/i.test(p.textContent));
-    if (!bustPara) return;
-
-    // Wrap the paragraph and image together inline
-    const wrapper = document.createElement('div');
-    wrapper.className = 'mt-2 flex items-center gap-4';
-    bustPara.replaceWith(wrapper);
-    wrapper.appendChild(bustPara);
-
-  const img = document.createElement('img');
-  img.src = 'bust.png'; // image placed next to mea/index.html
-  img.alt = 'Bust measurement guide showing high vs full bust';
-  img.className = 'chart-helper-img border border-mea-peach rounded-lg';
-  // Make helper image non-clickable (visual guide only)
-  img.style.cursor = 'default';
-    wrapper.appendChild(img);
-  } catch (e) {
-    console.warn('Failed to inject bust helper image:', e);
-  }
-});
-</script>
 </body>
 </html>
     </script>
