@@ -2084,6 +2084,12 @@
           const jacketPreview = document.getElementById('jacketPreview');
           const pantsPreview = document.getElementById('pantsPreview');
 
+          // Ensure default Length/Width are set to Regular on load
+          if (jacketLengthSel) jacketLengthSel.value = 'Regular';
+          if (jacketWidthSel) jacketWidthSel.value = 'Regular';
+          if (pantsLengthSel) pantsLengthSel.value = 'Regular';
+          if (pantsWidthSel) pantsWidthSel.value = 'Regular';
+
           if (jacketSizeSel) fillNumericOptions(jacketSizeSel, 32, 60, 2);
           if (pantsSizeSel) fillNumericOptions(pantsSizeSel, 28, 56, 2);
 
@@ -2109,7 +2115,20 @@
           if (openSizeChart && sizeChartModal) {
             openSizeChart.addEventListener('click', () => {
               sizeChartModal.classList.remove('hidden');
-              // Initialize charts with current dropdown values
+              // Sync chart dropdowns to match current main form selections on open
+              if (jacketChartLength && jacketLengthSel) {
+                jacketChartLength.value = jacketLengthSel.value;
+              }
+              if (jacketChartWidth && jacketWidthSel) {
+                jacketChartWidth.value = jacketWidthSel.value;
+              }
+              if (pantsChartLength && pantsLengthSel) {
+                pantsChartLength.value = pantsLengthSel.value;
+              }
+              if (pantsChartWidth && pantsWidthSel) {
+                pantsChartWidth.value = pantsWidthSel.value;
+              }
+              // Initialize charts with the synced dropdown values
               updateChartMeasurements('jacket');
               updateChartMeasurements('pants');
             });
@@ -2176,20 +2195,22 @@
           };
 
           // Dropdown value multipliers
+          // Increment multipliers per user formula:
+          // measurement + (-2 × increment), (-1 × increment), default, (+1 × increment), (+2 × increment)
           const lengthMultipliers = {
-            'Extra Short': -4,
-            'Short': -2,
+            'Extra Short': -2,
+            'Short': -1,
             'Regular': 0,
-            'Tall': 2,
-            'Extra Tall': 4
+            'Tall': 1,
+            'Extra Tall': 2
           };
 
           const widthMultipliers = {
-            'Skinny': -4,
-            'Slim': -2,
+            'Skinny': -2,
+            'Slim': -1,
             'Regular': 0,
-            'Loose': 2,
-            'Extra Loose': 4
+            'Loose': 1,
+            'Extra Loose': 2
           };
 
           // Function to update chart measurements
