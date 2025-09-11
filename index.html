@@ -2179,7 +2179,7 @@
             jacket: {
               length: 0.75,
               waist: 0.75,
-              hip: 0.75,
+              hip: 1,
               sleeve: 0.5,
               bicep: 0.5,
               chest: 0.75 // inferred from pattern
@@ -2232,14 +2232,21 @@
               const increment = typeIncrements[measurementType] || 0;
               
               // Determine if this measurement is affected by length or width
-              // NOTE: chest (jacket), waist (pants) and rise (pants) should remain constant per request
+              // NOTE: chest (jacket) should remain constant; waist (pants) and rise (pants) remain constant
               let multiplier = 0;
               // Measurements affected by length changes
               if (measurementType === 'length' || measurementType === 'sleeve') {
                 multiplier = lengthMultiplier;
               }
               // Measurements affected by width changes (exclude chest & waist)
-              else if (measurementType === 'hip' || measurementType === 'bicep' || measurementType === 'thigh' || measurementType === 'bottom') {
+              else if (
+                measurementType === 'hip' ||
+                measurementType === 'bicep' ||
+                measurementType === 'thigh' ||
+                measurementType === 'bottom' ||
+                // Make jacket waist respond to width while leaving pants waist constant
+                (type === 'jacket' && measurementType === 'waist')
+              ) {
                 multiplier = widthMultiplier;
               }
               
