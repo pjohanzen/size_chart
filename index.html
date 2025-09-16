@@ -841,6 +841,112 @@
       <button onclick="closeImageModal()" class="absolute top-8 right-8 text-white text-3xl font-bold">&times;</button>
     </div>
 
+    <!-- Size Help Modal -->
+    <div id="sizeHelpModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
+      <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl p-8 relative max-h-[95vh] overflow-y-auto">
+        <button id="closeSizeHelp" class="absolute top-6 right-8 text-mea-dark-gray hover:text-mea-peach text-4xl font-bold transition-all duration-200">&times;</button>
+        <h4 class="serif text-3xl mb-6 text-mea-peach text-center">Sizing Guide</h4>
+        
+        <div class="prose max-w-none">
+          <h2 class="text-2xl font-bold text-mea-black mb-4">How to Find Your Perfect Size</h2>
+          
+          <div class="bg-gradient-to-r from-mea-peach-light to-pink-50 rounded-2xl p-6 mb-8">
+            <h3 class="text-xl font-semibold text-mea-black mb-3">Important Note</h3>
+            <p class="text-base text-mea-dark-gray leading-relaxed">
+              The measurements in our size charts are <strong>garment measurements</strong>, not body measurements. 
+              They include the extra room needed for a proper fit. Always refer to the garment measurements 
+              when selecting your size.
+            </p>
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-xl font-semibold text-mea-black mb-4">For Jackets</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Bust Measurement</h4>
+                  <p class="text-base text-mea-dark-gray leading-relaxed">
+                    Measure around the fullest part of your chest, keeping the tape measure parallel to the floor. 
+                    This is typically where your bra band sits. Make sure the tape is snug but not tight.
+                  </p>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Length Options</h4>
+                  <ul class="list-disc list-inside text-base text-mea-dark-gray space-y-1">
+                    <li><strong>Extra Short:</strong> For petite frames or if you prefer shorter jackets</li>
+                    <li><strong>Short:</strong> For shorter torsos or petite builds</li>
+                    <li><strong>Regular:</strong> Standard length for most body types</li>
+                    <li><strong>Tall:</strong> For longer torsos or taller builds</li>
+                    <li><strong>Extra Tall:</strong> For very tall frames or long torsos</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Width Options</h4>
+                  <ul class="list-disc list-inside text-base text-mea-dark-gray space-y-1">
+                    <li><strong>Skinny:</strong> For very slim builds</li>
+                    <li><strong>Slim:</strong> For slender frames</li>
+                    <li><strong>Regular:</strong> Standard fit for most body types</li>
+                    <li><strong>Loose:</strong> For fuller figures or if you prefer a relaxed fit</li>
+                    <li><strong>Extra Loose:</strong> For very full figures or a very relaxed fit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-mea-black mb-4">For Pants</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Waist Measurement</h4>
+                  <p class="text-base text-mea-dark-gray leading-relaxed">
+                    Measure around your natural waistline, which is typically the narrowest part of your torso, 
+                    usually just above your belly button. Keep the tape measure parallel to the floor and snug but not tight.
+                  </p>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Length Options</h4>
+                  <ul class="list-disc list-inside text-base text-mea-dark-gray space-y-1">
+                    <li><strong>Extra Short:</strong> For very short inseams (under 28")</li>
+                    <li><strong>Short:</strong> For shorter inseams (28-30")</li>
+                    <li><strong>Regular:</strong> Standard length for most heights (30-32")</li>
+                    <li><strong>Tall:</strong> For longer inseams (32-34")</li>
+                    <li><strong>Extra Tall:</strong> For very long inseams (34"+)</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-mea-dark-gray mb-2">Width Options</h4>
+                  <ul class="list-disc list-inside text-base text-mea-dark-gray space-y-1">
+                    <li><strong>Skinny:</strong> For very slim legs and hips</li>
+                    <li><strong>Slim:</strong> For slender legs and hips</li>
+                    <li><strong>Regular:</strong> Standard fit for most body types</li>
+                    <li><strong>Loose:</strong> For fuller legs and hips</li>
+                    <li><strong>Extra Loose:</strong> For very full legs and hips</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-mea-peach-light rounded-2xl p-6">
+              <h3 class="text-xl font-semibold text-mea-black mb-4">Still Unsure?</h3>
+              <p class="text-base text-mea-dark-gray leading-relaxed mb-4">
+                If you're still not sure about your size, we recommend:
+              </p>
+              <ul class="list-disc list-inside text-base text-mea-dark-gray space-y-2">
+                <li>Measure yourself with a flexible measuring tape</li>
+                <li>Compare your measurements to our size chart</li>
+                <li>When in doubt, choose the larger size - we can always make adjustments</li>
+                <li>Contact us at <a href="mailto:hello@measuit.com" class="text-mea-peach hover:underline">hello@measuit.com</a> for personalized sizing help</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center mt-8 pt-6 border-t border-gray-200">
+          <button id="closeSizeHelpBottom" class="bg-mea-peach text-white px-8 py-3 rounded-xl transition-all duration-200 shadow-lg hover:bg-[#ff9770]">Close</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Size Chart Modal -->
     <div id="sizeChartModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
       <div class="bg-white w-full max-w-7xl rounded-3xl shadow-2xl p-8 relative max-h-[95vh] overflow-y-auto">
@@ -857,27 +963,32 @@
         <div id="jacketChart" class="size-chart-content active">
           <div class="flex flex-col md:flex-row items-center justify-between mb-4">
             <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Jacket</h5>
-            <div class="flex gap-4 items-center chart-controls">
-              <div class="flex items-center gap-2">
-                <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
-                <select id="jacketChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
-                  <option value="Extra Short">Extra Short</option>
-                  <option value="Short">Short</option>
-                  <option value="Regular" selected>Regular</option>
-                  <option value="Tall">Tall</option>
-                  <option value="Extra Tall">Extra Tall</option>
-                </select>
+            <div class="flex flex-col md:flex-row gap-4 items-center chart-controls">
+              <div class="flex gap-4 items-center">
+                <div class="flex items-center gap-2">
+                  <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
+                  <select id="jacketChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                    <option value="Extra Short">Extra Short</option>
+                    <option value="Short">Short</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Tall">Tall</option>
+                    <option value="Extra Tall">Extra Tall</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-2">
+                  <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
+                  <select id="jacketChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                    <option value="Skinny">Skinny</option>
+                    <option value="Slim">Slim</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Loose">Loose</option>
+                    <option value="Extra Loose">Extra Loose</option>
+                  </select>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
-                <select id="jacketChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
-                  <option value="Skinny">Skinny</option>
-                  <option value="Slim">Slim</option>
-                  <option value="Regular" selected>Regular</option>
-                  <option value="Loose">Loose</option>
-                  <option value="Extra Loose">Extra Loose</option>
-                </select>
-              </div>
+              <button id="openSizeHelp" class="bg-mea-peach text-white px-4 py-2 rounded hover:bg-[#ff9770] transition text-sm font-semibold whitespace-nowrap">
+                Need help with your size?
+              </button>
             </div>
           </div>
           <div class="mb-6">
@@ -1030,27 +1141,32 @@
         <div id="pantsChart" class="size-chart-content active" style="margin-top: 2rem;">
           <div class="flex flex-col md:flex-row items-center justify-between mb-4">
             <h5 class="text-2xl font-bold text-mea-black mb-2 md:mb-0">Pants</h5>
-            <div class="flex gap-4 items-center chart-controls">
-              <div class="flex items-center gap-2">
-                <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
-                <select id="pantsChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
-                  <option value="Extra Short">Extra Short</option>
-                  <option value="Short">Short</option>
-                  <option value="Regular" selected>Regular</option>
-                  <option value="Tall">Tall</option>
-                  <option value="Extra Tall">Extra Tall</option>
-                </select>
+            <div class="flex flex-col md:flex-row gap-4 items-center chart-controls">
+              <div class="flex gap-4 items-center">
+                <div class="flex items-center gap-2">
+                  <label class="text-sm font-semibold text-mea-dark-gray">Length:</label>
+                  <select id="pantsChartLength" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                    <option value="Extra Short">Extra Short</option>
+                    <option value="Short">Short</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Tall">Tall</option>
+                    <option value="Extra Tall">Extra Tall</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-2">
+                  <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
+                  <select id="pantsChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
+                    <option value="Skinny">Skinny</option>
+                    <option value="Slim">Slim</option>
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Loose">Loose</option>
+                    <option value="Extra Loose">Extra Loose</option>
+                  </select>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <label class="text-sm font-semibold text-mea-dark-gray">Width:</label>
-                <select id="pantsChartWidth" class="border border-gray-300 rounded px-2 py-1 text-sm">
-                  <option value="Skinny">Skinny</option>
-                  <option value="Slim">Slim</option>
-                  <option value="Regular" selected>Regular</option>
-                  <option value="Loose">Loose</option>
-                  <option value="Extra Loose">Extra Loose</option>
-                </select>
-              </div>
+              <button id="openSizeHelpPants" class="bg-mea-peach text-white px-4 py-2 rounded hover:bg-[#ff9770] transition text-sm font-semibold whitespace-nowrap">
+                Need help with your size?
+              </button>
             </div>
           </div>
           <div class="mb-6">
@@ -2105,6 +2221,45 @@
             .filter(Boolean)
             .forEach(el => el.addEventListener('change', updatePreviews));
           updatePreviews();
+
+          // Size help modal behavior
+          const sizeHelpModal = document.getElementById('sizeHelpModal');
+          const openSizeHelp = document.getElementById('openSizeHelp');
+          const openSizeHelpPants = document.getElementById('openSizeHelpPants');
+          const closeSizeHelp = document.getElementById('closeSizeHelp');
+          const closeSizeHelpBottom = document.getElementById('closeSizeHelpBottom');
+
+          // Open size help modal
+          if (openSizeHelp && sizeHelpModal) {
+            openSizeHelp.addEventListener('click', () => {
+              sizeHelpModal.classList.remove('hidden');
+            });
+          }
+
+          if (openSizeHelpPants && sizeHelpModal) {
+            openSizeHelpPants.addEventListener('click', () => {
+              sizeHelpModal.classList.remove('hidden');
+            });
+          }
+
+          // Close size help modal
+          if (closeSizeHelp && sizeHelpModal) {
+            closeSizeHelp.addEventListener('click', () => {
+              sizeHelpModal.classList.add('hidden');
+            });
+          }
+
+          if (closeSizeHelpBottom && sizeHelpModal) {
+            closeSizeHelpBottom.addEventListener('click', () => {
+              sizeHelpModal.classList.add('hidden');
+            });
+          }
+
+          if (sizeHelpModal) {
+            sizeHelpModal.addEventListener('click', (e) => {
+              if (e.target === sizeHelpModal) sizeHelpModal.classList.add('hidden');
+            });
+          }
 
           // Size chart modal behavior
           const sizeChartModal = document.getElementById('sizeChartModal');
