@@ -547,9 +547,9 @@
                 <p class="text-lg md:text-2xl font-semibold tracking-[.25em] uppercase text-black mb-6">Limited Time Offer</p>
                 <h2 class="serif text-3xl md:text-4xl mb-6">First Suit Deal</h2>
                 <p class="text-xl md:text-2xl font-semibold mb-6 text-mea-dark-gray">Get your custom suit for just <span class="line-through text-mea-dark-gray">$425</span> <span class="text-mea-peach">$299</span>.</p>
-                <a href="#" class="inline-flex items-center px-10 py-3 border border-mea-peach bg-mea-peach text-white hover:bg-[#ff9770] hover:text-white transition-all duration-300 text-xs font-light tracking-widest uppercase">
-                    Start Your Order
-                </a>
+                <button id="scheduleMeetingBtn" class="inline-flex items-center px-10 py-3 border border-mea-peach bg-mea-peach text-white hover:bg-[#ff9770] hover:text-white transition-all duration-300 text-xs font-light tracking-widest uppercase">
+                    Schedule Your Meeting
+                </button>
             </div>
         </div>
     </section>
@@ -839,6 +839,15 @@
     <div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
       <img id="imageModalImg" src="" alt="Preview" class="max-w-full max-h-[80vh] rounded-2xl shadow-2xl border-4 border-white">
       <button onclick="closeImageModal()" class="absolute top-8 right-8 text-white text-3xl font-bold">&times;</button>
+    </div>
+
+    <!-- Schedule Meeting (Zcal) Modal -->
+    <div id="meetingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden overflow-y-auto">
+      <div class="bg-white w-full max-w-3xl p-4 sm:p-6 md:p-8 my-4 relative animate-fade-in rounded-2xl sm:rounded-3xl border border-mea-peach shadow-2xl overflow-y-auto max-h-[95vh]">
+        <button id="closeMeetingModal" class="absolute top-4 right-4 text-mea-dark-gray hover:text-mea-peach text-2xl">&times;</button>
+        <h3 class="serif text-2xl sm:text-3xl mb-4 text-center text-mea-peach">Schedule Your Meeting</h3>
+        <div class="zcal-inline-widget"><a href="https://zcal.co/i/nm_djZ75">Mea 8-Pocket Suit Call - Schedule a meeting</a></div>
+      </div>
     </div>
 
     <!-- Size Help Modal -->
@@ -1323,6 +1332,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script type="text/javascript" async src="https://static.zcal.co/embed/v1/embed.js"></script>
     <script>
         // Initialize AOS animations
         document.addEventListener('DOMContentLoaded', function() {
@@ -1966,29 +1976,31 @@
                 showStep(0); // Reset to the first step when closing
             };
 
-            // Modal open/close
-            var startOrderBtns = document.querySelectorAll('a[href="#"], a[href="#preorder"]');
-            startOrderBtns.forEach(function(btn) {
-              if (btn.textContent.trim().toLowerCase().includes('start your order')) {
-                btn.addEventListener('click', function(e) {
-                  e.preventDefault();
-                  orderModal.classList.remove('hidden');
-                  showStep(0); // Always start at the first step when opening
-                });
-              }
-            });
+            // Meeting modal open/close
+            const meetingModal = document.getElementById('meetingModal');
+            const scheduleMeetingBtn = document.getElementById('scheduleMeetingBtn');
+            const closeMeetingModal = document.getElementById('closeMeetingModal');
 
-            closeOrderModal.addEventListener('click', function() {
-              orderModal.classList.add('hidden');
-              showStep(0); // Reset to the first step when closing
-            });
+            if (scheduleMeetingBtn && meetingModal) {
+              scheduleMeetingBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                meetingModal.classList.remove('hidden');
+              });
+            }
 
-            orderModal.addEventListener('click', function(e) {
-              if (e.target === orderModal) {
-                orderModal.classList.add('hidden');
-                showStep(0); // Reset to the first step when clicking outside
-              }
-            });
+            if (closeMeetingModal && meetingModal) {
+              closeMeetingModal.addEventListener('click', function() {
+                meetingModal.classList.add('hidden');
+              });
+            }
+
+            if (meetingModal) {
+              meetingModal.addEventListener('click', function(e) {
+                if (e.target === meetingModal) {
+                  meetingModal.classList.add('hidden');
+                }
+              });
+            }
 
             // Load form data when the page loads
             loadFormData();
